@@ -1,0 +1,27 @@
+.input-suggestions {
+    position: relative;
+    display: block;
+    max-width: 100%;
+}
+
+.input-suggestions-items {
+    margin-top: 4pt;
+    max-height: 30vh;
+    overflow-y: auto;
+    position: absolute;
+    display: block;
+    max-width: 100%;
+}
+
+.input-suggestion-item {
+    padding:  2pt var(--huge);
+    cursor: pointer;
+    font-size: var(--normal);
+    border: 4pt transparent solid;
+    border-radius: var(--huge);
+    text-align: left;
+    transition: font-size 0.1s ease;
+}
+.input-suggestion-item:hover {
+    font-size: var(--huge);
+}

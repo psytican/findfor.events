@@ -13,11 +13,12 @@ header div.input {
 }
 
 header div.button {
-    min-height: 80pt;
+    height: var(--huge-margin);
+    overflow: hidden;
 }
 
 header button {
-    margin-top: var(--huge-margin);
+    margin-top: var(--huge);
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
     font-size: var(--normal);

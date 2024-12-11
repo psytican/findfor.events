@@ -1,5 +1,3 @@
-const CACHE_NAME = 'noroof-club--cache-version--3';
-
 const urlsToCache = [
     '/',
     '/index.html',

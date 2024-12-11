@@ -11,36 +11,12 @@ function loadScript(url) {
     document.head.appendChild(script);
 }
 
-loadScript("/js/input_suggestions.js");
+const CACHE_NAME = 'findfor.events--cache-version--3';
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/js/service-worker.js').then((registration) => {
-            console.log('Service Worker registered with scope:', registration.scope);
+loadScript("/js/service-worker/add-listener.js");
+loadScript("/js/dictionaries/countries.js");
+loadScript("/js/behaviours/input_suggestions.js");
 
-            registration.onupdatefound = () => {
-                const installingWorker = registration.installing;
-                installingWorker.onstatechange = () => {
-                    if (installingWorker.state === 'installed') {
-                        if (navigator.serviceWorker.controller) {
-                            console.log('New content is available; please refresh.');
-                            if (confirm('New version available. Refresh now?')) {
-                                window.location.reload();
-                            }
-                        } else {
-                            console.log('Content is cached for offline use.');
-                        }
-                    }
-                };
-            };
-        }).catch((error) => {
-            console.error('Service Worker registration failed:', error);
-        });
-    });
+loadScript("/js/behaviours/field_country.js");
 
-    navigator.serviceWorker.getRegistration().then(function(registration) {
-        if (registration) {
-            registration.update();
-        }
-    });
-}
+

@@ -16,3 +16,10 @@ document.getElementById('country')
             document.getElementById('country-confirm-button').style.display = result ? 'inline-block' : 'none'
         }
     ));
+
+document.getElementById('country-confirm-button')
+    .addEventListener('click', (event) => {
+        const country = document.getElementById('country').value;
+        console.log(country);
+    });
+

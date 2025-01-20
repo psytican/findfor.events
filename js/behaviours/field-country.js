@@ -19,7 +19,7 @@ document.getElementById('country')
 
 document.getElementById('country-confirm-button')
     .addEventListener('click', (event) => {
-        const country = document.getElementById('country').value;
-        console.log(country);
+        const country = document.getElementById('country');
+        console.log(country.value, country.slug);
     });
 

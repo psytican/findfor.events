@@ -17,20 +17,21 @@ function showSuggestions(element, suggestions, values, callback) {
     callback();
     suggestions.innerHTML = '';
     let value = element.value;
-    const items = Object.values(values)
+    const items = Object.entries(values)
 
     if (value) {
-        const matches = items.filter(item => item.toLowerCase().includes(value.toLowerCase()));
+        const matches = items.filter(item => item[0].toLowerCase().includes(value.toLowerCase()));
 
         if (matches.length > 0) {
             suggestions.style.display = 'block';
 
             matches.slice(0, 4).forEach(match => {
                 const div = document.createElement('div');
-                div.textContent = match.toUpperCase();
+                div.textContent = match[1].toUpperCase();
                 div.classList.add('input-suggestion-item');
                 div.onclick = () => {
-                    element.value = match;
+                    element.slug = match[0];
+                    element.value = match[1];
                     suggestions.innerHTML = '';
                 };
                 suggestions.appendChild(div);
@@ -55,10 +56,12 @@ function validateSuggestions(element, values, callback) {
 
         if (matches.length > 0) {
             element.classList.remove('error');
-            callback(true);
         } else {
             element.classList.add('error');
-            callback(false);
+        }
+
+        if (callback instanceof Function) {
+            callback(matches.length > 0);
         }
     }, 200);
 }

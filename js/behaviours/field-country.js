@@ -1,3 +1,5 @@
+const FIELD_COUNTRY = 'country';
+
 document.getElementById('country')
     .addEventListener('input', (event) => showSuggestions(
         event.target,
@@ -20,6 +22,11 @@ document.getElementById('country')
 document.getElementById('country-confirm-button')
     .addEventListener('click', (event) => {
         const country = document.getElementById('country');
-        console.log(country.value, country.slug);
+        if(country.slug.trim().length === 0){
+            window.application.notification.error('Country is empty');
+            return;
+        }
+        window.application.storage.set(FIELD_COUNTRY, country.slug);
+        window.application.notification.success('Country has been chosen');
     });
 

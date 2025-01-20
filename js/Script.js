@@ -1,4 +1,4 @@
-class script {
+class Script {
     static load(url, callback) {
         const script = document.createElement("script");
         script.src = url;

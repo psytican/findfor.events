@@ -18,6 +18,8 @@ class Application {
             if (isLoaded === true) {
                 self.storage = Storage;
             }
+
+            self.visibilityCallbackHandler();
         });
 
         this.script.load('/js/Notification.js', function (isLoaded) {
@@ -25,13 +27,14 @@ class Application {
                 self.notification = Notification;
             }
         });
-
-        this.visibilityCallbackHandler();
     }
 
     visibilityCallbackHandler() {
         document.querySelectorAll('[data-visibility-callback]').forEach(item => {
             const callback = new Function(item.getAttribute('data-visibility-callback'));
+
+            console.log(callback());
+
             if (callback() === true) {
                 item.style.display = 'block'
             } else {

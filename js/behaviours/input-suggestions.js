@@ -20,7 +20,8 @@ function showSuggestions(element, suggestions, values, callback) {
     const items = Object.entries(values)
 
     if (value) {
-        const matches = items.filter(item => item[0].toLowerCase().includes(value.toLowerCase()));
+        const matches = items.filter(item => item[0].toLowerCase().includes(value.toLowerCase())
+            || item[1].toLowerCase().includes(value.toLowerCase()));
 
         if (matches.length > 0) {
             suggestions.style.display = 'block';

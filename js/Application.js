@@ -4,6 +4,7 @@ class Application {
     notification = null;
     script = null;
     storage = null;
+
     constructor() {
         const self = this;
 
@@ -14,14 +15,27 @@ class Application {
         this.script.load('/js/behaviours/field-country.js');
 
         this.script.load('/js/Storage.js', function (isLoaded) {
-            if(isLoaded === true){
+            if (isLoaded === true) {
                 self.storage = Storage;
             }
         });
 
         this.script.load('/js/Notification.js', function (isLoaded) {
-            if(isLoaded === true){
+            if (isLoaded === true) {
                 self.notification = Notification;
+            }
+        });
+
+        this.visibilityCallbackHandler();
+    }
+
+    visibilityCallbackHandler() {
+        document.querySelectorAll('[data-visibility-callback]').forEach(item => {
+            const callback = new Function(item.getAttribute('data-visibility-callback'));
+            if (callback() === true) {
+                item.style.display = 'block'
+            } else {
+                item.style.display = 'none'
             }
         });
     }

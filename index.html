@@ -23,7 +23,7 @@
     <meta http-equiv="Expires" content="0" />
 </head>
 <body>
-<header>
+<header data-visibility-callback="() => window.application.storage.get(FIELD_COUNTRY) === null;">
     <article class="header-logo">
         <figure>
             <img src="/images/logo.svg" alt="FIND FOR EVENTS" width="100%" height="100%">

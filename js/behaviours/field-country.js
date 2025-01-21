@@ -28,5 +28,6 @@ document.getElementById('country-confirm-button')
         }
         window.application.storage.set(FIELD_COUNTRY, country.slug);
         window.application.notification.success('Country has been chosen');
+        window.application.visibilityCallbackHandler();
     });
 

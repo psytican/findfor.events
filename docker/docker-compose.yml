@@ -1,0 +1,104 @@
+networks:
+  default:
+    name: ${NETWORK_NAME}
+    external: true
+
+services:
+  launchpad:
+    container_name: ${COMPOSE_PROJECT_NAME}--launchpad
+    hostname: ${COMPOSE_PROJECT_NAME}--launchpad
+    build:
+      context: ./images/launchpad
+    volumes:
+      - ../src:/opt/app:rw
+      - ./images/launchpad/config/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+    restart: ${RESTART_FLAG}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY_LIMIT}
+        reservations:
+          memory: ${MEMORY_RESERVATION}
+  php_cli:
+    container_name: ${COMPOSE_PROJECT_NAME}--php-cli
+    hostname: ${COMPOSE_PROJECT_NAME}--php-cli
+    build:
+      context: ./images/php_cli
+    volumes:
+      - ../src:/opt/app:rw
+      - ./images/php_cli/config/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+    restart: ${RESTART_FLAG}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY_LIMIT}
+        reservations:
+          memory: ${MEMORY_RESERVATION}
+  nginx:
+    container_name: ${COMPOSE_PROJECT_NAME}--nginx
+    hostname: ${COMPOSE_PROJECT_NAME}--nginx
+    image: nginx:1.23.3
+    volumes:
+      - ./images/nginx/templates:/etc/nginx/templates
+      - ./volumes/logs/nginx:/var/log/nginx:rw
+      - ../src:/opt/app:ro
+    ports:
+      - ${NGINX_PORT_80}:80
+    environment:
+      - ROOT_PATH=/opt/app/public
+      - PHP_FPM_HOST=${PHP_FPM_HOST}
+    depends_on:
+      - php_fpm
+      - redis
+    links:
+      - php_fpm
+    restart: ${RESTART_FLAG}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY_LIMIT}
+        reservations:
+          memory: ${MEMORY_RESERVATION}
+  php_fpm:
+    container_name: ${COMPOSE_PROJECT_NAME}--php-fpm
+    hostname: ${COMPOSE_PROJECT_NAME}--php-fpm
+    build:
+      context: ./images/php_fpm
+    volumes:
+      - ../src:/opt/app:rw
+    restart: ${RESTART_FLAG}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY_LIMIT}
+        reservations:
+          memory: ${MEMORY_RESERVATION}
+  redis:
+    container_name: ${COMPOSE_PROJECT_NAME}--redis
+    hostname: ${COMPOSE_PROJECT_NAME}--redis
+    image: redis:7
+    restart: ${RESTART_FLAG}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY_LIMIT}
+        reservations:
+          memory: ${MEMORY_RESERVATION}
+  mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}--mysql
+    hostname: ${COMPOSE_PROJECT_NAME}--mysql
+    image: mysql:8
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: ${RESTART_FLAG}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY_LIMIT}
+        reservations:
+          memory: ${MEMORY_RESERVATION}

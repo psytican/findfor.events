@@ -10,6 +10,7 @@
         "autoprefixer": "^10.4.20",
         "core-js": "^3.38.0",
         "postcss": "^8.5.1",
+        "postcss-loader": "^8.1.1",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-redux": "^9.2.0",
@@ -32,6 +33,7 @@
     },
     "dependencies": {
         "@heroicons/react": "^2.2.0",
+        "@heroui/button": "^2.2.10",
         "@heroui/react": "^2.6.14",
         "axios": "^1.7.9",
         "framer-motion": "^12.0.1"

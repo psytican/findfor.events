@@ -23,7 +23,7 @@ npm install sass-loader sass --save-dev
 npm install axios --save
 npm install react-router-dom @reduxjs/toolkit react-redux --save-dev
 npm install @heroui/react framer-motion
-npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss postcss postcss-loader autoprefixer
 npx tailwindcss init -p
 npm install @heroicons/react
 ```

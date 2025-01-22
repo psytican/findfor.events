@@ -3,10 +3,9 @@ const {heroui} = require("@heroui/react");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    // ...
-    // make sure it's pointing to the ROOT node_module
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
-    "./assets//**/*.{js,ts,jsx,tsx}",
+    "./assets/**/*.{js,jsx,ts,tsx}",
+    "./templates/**/*.html.twig",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {},
